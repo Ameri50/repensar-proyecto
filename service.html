@@ -53,16 +53,61 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
+                    <th>Email</th>
                     <th>WhatsApp</th>
-                    <th>Acción</th>
+                    <th>Funnel</th>
+                    <th>Curso</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody id="contactTable">
                 <!-- Las filas se agregarán aquí dinámicamente -->
             </tbody>
         </table>
+    </div>
+
+    <!-- Modal para editar contacto -->
+    <div class="modal fade" id="editContactModal" tabindex="-1" aria-labelledby="editContactModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editContactModalLabel">Editar Contacto</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="editContactForm">
+                <div class="mb-3">
+                    <label for="editName" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="editName">
+                </div>
+                <div class="mb-3">
+                    <label for="editLastName" class="form-label">Apellido</label>
+                    <input type="text" class="form-control" id="editLastName">
+                </div>
+                <div class="mb-3">
+                    <label for="editEmail" class="form-label">Correo</label>
+                    <input type="email" class="form-control" id="editEmail">
+                </div>
+                <div class="mb-3">
+                    <label for="editWhatsapp" class="form-label">WhatsApp</label>
+                    <input type="text" class="form-control" id="editWhatsapp">
+                </div>
+                <div class="mb-3">
+                    <label for="editFunnel" class="form-label">Funnel</label>
+                    <input type="text" class="form-control" id="editFunnel">
+                </div>
+                <div class="mb-3">
+                    <label for="editCurso" class="form-label">Curso</label>
+                    <input type="text" class="form-control" id="editCurso">
+                </div>
+                <button type="button" class="btn btn-success" id="saveChangesBtn">Guardar Cambios</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Bootstrap JS and Popper -->

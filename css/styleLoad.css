@@ -1,229 +1,154 @@
-/* General */
+/* General styles */
 body {
-    background-color: #f8f9fa;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+    margin: 0;
+    padding: 0;
 }
 
-/* Navbar */
-.navbar {
-    padding: 1.5rem;
-}
-
-.navbar-brand {
-    font-size: 1.5rem;
-}
-
-.nav-link {
-    font-size: 1rem;
-    transition: color 0.3s ease-in-out;
-}
-
-.nav-link:hover {
-    color: #f8d210 !important;
-}
-
-/* Main Content */
-.main-content {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background: linear-gradient(to right, #0072ff, #00c6ff);
-    color: white;
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 20px;
 }
 
-.logo-container img {
-    max-width: 200px;
-    transition: transform 0.3s ease-in-out;
+h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 20px;
 }
 
-.logo-container img:hover {
-    transform: scale(1.1);
-}
-
-/* Footer */
-.footer {
-    background: #212529;
-    color: white;
-    font-size: 0.9rem;
-}
-
-.footer a {
-    text-decoration: none;
-    color: #f8d210;
-    transition: color 0.3s ease-in-out;
-}
-
-.footer a:hover {
-    color: #ffd700;
-}
-
-/* Input section and button */
+/* Input section */
 #filePath {
-    width: 80%;
-    display: inline-block;
-    margin-right: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
+    border: none;
+    background-color: #e9ecef;
     border-radius: 5px;
+    padding: 10px;
+    width: 80%;
 }
 
 #loadBtn {
-    width: 15%;
-    background-color: #0072ff;
-    color: white;
+    background-color: #007bff;
+    color: #fff;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s;
 }
 
 #loadBtn:hover {
     background-color: #0056b3;
 }
 
-/* Button styles */
-.btn-home {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #0072ff;
-    color: white;
-    font-size: 1.5rem;
-    padding: 15px;
-    border-radius: 50%;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease;
-}
-
-.btn-home:hover {
-    background-color: #0056b3;
-    color: #f8f9fa;
-}
-
-/* Table Styles */
-#leadTable {
-    width: 100%;
-    border-collapse: collapse;
+/* Table styles */
+.table-responsive {
     margin-top: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    overflow: hidden;
 }
 
-#leadTable thead th {
-    background-color: #0072ff;
-    color: white;
-    padding: 10px;
+.table {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 12px;
     text-align: left;
 }
 
-#leadTable tbody td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-}
-
-#leadTable tbody tr:hover {
-    background-color: #f1f1f1;
-}
-
-/* Edit and Delete Buttons */
-.editBtn {
-    background-color: #ffc107;
+thead {
+    background-color: #007bff;
     color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
 }
 
-.editBtn:hover {
-    background-color: #e0a800;
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
 }
 
-.deleteBtn {
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+td {
+    font-size: 1rem;
 }
 
-.deleteBtn:hover {
-    background-color: #c82333;
-}
-
-/* Modal Styles */
-.modal-content {
-    border-radius: 8px;
-    background-color: #ffffff;
+/* Form section */
+form {
+    background-color: #fff;
+    border-radius: 10px;
     padding: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.modal-header {
-    background-color: #0072ff;
-    color: white;
+.form-group {
+    margin-bottom: 15px;
 }
 
-.modal-footer {
-    background-color: #f1f1f1;
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
 }
 
-.modal-footer button {
-    border-radius: 5px;
-    padding: 5px 15px;
-}
-
-#saveChangesBtn {
-    background-color: #0072ff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    transition: background-color 0.3s ease;
-}
-
-#saveChangesBtn:hover {
-    background-color: #0056b3;
-}
-
-/* Edit Form Styles */
-#editLeadForm {
-    border: 1px solid #0072ff;
-    padding: 20px;
-    border-radius: 8px;
-    background-color: #f4f4f4;
-}
-
-#editLeadForm input {
+input {
     width: 100%;
     padding: 10px;
-    margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
-#editLeadForm input:focus {
-    border-color: #0072ff;
-    outline: none;
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
 }
 
-/* Container Styling */
-.container-fluid {
-    max-width: 1200px;
-    margin: 0 auto;
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Modal styles */
+.modal-content {
+    border-radius: 10px;
     padding: 20px;
 }
 
-h3 {
-    font-weight: bold;
-    color: #333;
+.modal-header {
+    border-bottom: none;
 }
 
-button {
-    margin-top: 10px;
+.modal-footer {
+    border-top: none;
+}
+
+/* Home Button */
+#homeBtn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+}
+
+#homeBtn:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    #filePath {
+        width: 100%;
+    }
+
+    .table {
+        font-size: 0.9rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
 }

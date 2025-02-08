@@ -22,6 +22,33 @@
         <button id="loadBtn" class="btn btn-primary ms-2">Load CSV</button>
     </div>
     
+<form id="addLeadForm">
+  <div class="form-group">
+      <label for="newName">Nombre:</label>
+      <input type="text" id="newName" class="form-control" required>
+  </div>
+  <div class="form-group">
+      <label for="newLastName">Apellido:</label>
+      <input type="text" id="newLastName" class="form-control" required>
+  </div>
+  <div class="form-group">
+      <label for="newEmail">Correo:</label>
+      <input type="email" id="newEmail" class="form-control" required>
+  </div>
+  <div class="form-group">
+      <label for="newWhatsapp">WhatsApp:</label>
+      <input type="text" id="newWhatsapp" class="form-control" required>
+  </div>
+  <div class="form-group">
+      <label for="newFunnel">Funnel:</label>
+      <input type="text" id="newFunnel" class="form-control">
+  </div>
+  <div class="form-group">
+      <label for="newCurso">Curso:</label>
+      <input type="text" id="newCurso" class="form-control">
+  </div>
+  <button type="submit" class="btn btn-primary">Agregar Lead</button>
+</form>    
     <!-- Table Section -->
     <div class="table-responsive mt-4">
         <table class="table table-bordered">
@@ -43,6 +70,10 @@
         </table>
     </div>
 </div>
+
+
+
+
 
 <!-- Modal de edición de Lead -->
 <div class="modal fade" id="editLeadModal" tabindex="-1" aria-labelledby="editLeadModalLabel" aria-hidden="true">
@@ -87,6 +118,7 @@
     </div>
   </div>
 </div>
+
 
 
 <!-- Botón Home -->

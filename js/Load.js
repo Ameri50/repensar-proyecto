@@ -77,18 +77,20 @@ function updateTable() {
     leads.forEach(function(lead) {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${lead.id}</td>
-            <td>${lead.nombre}</td>
-            <td>${lead.apellido}</td>
-            <td>${lead.correo}</td>
-            <td>${lead.whatsapp}</td>
-            <td>${lead.funnel}</td> <!-- Añadir columna para Funnel -->
-            <td>${lead.curso}</td> <!-- Añadir columna para Curso -->
-            <td>
-                <button class="btn btn-warning btn-sm editBtn" data-id="${lead.id}">Editar</button>
-                <button class="btn btn-danger btn-sm deleteBtn" data-id="${lead.id}">Eliminar</button>
-            </td>
-        `;
+    <td>${lead.id}</td>
+    <td>${lead.nombre}</td>
+    <td>${lead.apellido}</td>
+    <td>${lead.correo}</td>
+    <td>${lead.whatsapp}</td>
+    <td>${lead.funnel}</td>
+    <td>${lead.curso}</td>
+    <td>
+        <button class="btn btn-warning btn-sm editBtn" data-id="${lead.id}">Editar</button>
+        <button class="btn btn-danger btn-sm deleteBtn" data-id="${lead.id}">Eliminar</button>
+        <a href="https://wa.me/${lead.whatsapp.replace(/[^0-9]/g, '')}?text=Hola%20${lead.nombre}%2C%20te%20contactamos%20desde%20nuestra%20plataforma%20para%20ofrecerte%20nuestro%20nuevo%20curso%20en%20${lead.curso}." target="_blank" class="btn btn-success btn-sm">WhatsApp</a>
+    </td>
+`;
+
         tableBody.appendChild(row);
     });
 
@@ -179,4 +181,40 @@ function deleteLead(leadId) {
 // Función para redirigir al usuario al presionar el botón "Home"
 document.getElementById('homeBtn').addEventListener('click', function() {
     window.location.href = 'index.html'; // Redirige a la misma página
+});
+
+// Función para agregar un nuevo lead desde el formulario
+document.getElementById('addLeadForm').addEventListener('submit', function(event) {
+    event.preventDefault();  // Evitar que el formulario recargue la página
+
+    // Obtener los valores del formulario
+    const nombre = document.getElementById('newName').value;
+    const apellido = document.getElementById('newLastName').value;
+    const correo = document.getElementById('newEmail').value;
+    const whatsapp = document.getElementById('newWhatsapp').value;
+    const funnel = document.getElementById('newFunnel').value;  // Nuevo campo de Funnel
+    const curso = document.getElementById('newCurso').value;    // Nuevo campo de Curso
+
+    // Crear un nuevo lead y añadirlo al array leads
+    const newLead = {
+        id: currentId,
+        nombre: nombre,
+        apellido: apellido,
+        correo: correo,
+        whatsapp: whatsapp,
+        funnel: funnel,  // Añadir funnel
+        curso: curso     // Añadir curso
+    };
+
+    leads.push(newLead);
+    currentId++;  // Incrementar el ID
+
+    // Guardar los leads en el localStorage
+    localStorage.setItem('leads', JSON.stringify(leads));
+
+    // Limpiar el formulario
+    document.getElementById('addLeadForm').reset();
+
+    // Actualizar la tabla
+    updateTable();
 });
