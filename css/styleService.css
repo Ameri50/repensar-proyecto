@@ -1,0 +1,118 @@
+:root {
+    --primary-blue: #0d6efd;
+    --dark-blue: #0a58ca;
+    --white: white;
+}
+
+/* General Styles */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--white);
+    font-family: Arial, sans-serif;
+}
+
+.color-menu{
+    color: var(--white);
+}
+
+.text-footer{
+    color: var(--white);
+    text-decoration: none;
+    font-size: 0.70rem;
+}
+
+/* Navbar Styles */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+/* Main Content Styles */
+.main-content {
+    flex: 1;
+    padding: 80px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Logo Animation */
+.logo-container {
+    padding: 2rem;
+}
+
+.animated-logo {
+    animation: pulse 2s infinite;
+    max-width: 100%;
+    height: auto;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(2.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Footer Styles */
+.footer {
+    margin-top: auto;
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+    
+    .logo-container {
+        padding: 1rem;
+    }
+    
+    .animated-logo {
+        max-width: 150px;
+    }
+}
+
+@media (max-width: 576px) {
+    .main-content {
+        padding: 60px 0;
+    }
+    
+    .animated-logo {
+        max-width: 120px;
+    }
+}
+
+/* Hover Effects */
+.nav-link {
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}

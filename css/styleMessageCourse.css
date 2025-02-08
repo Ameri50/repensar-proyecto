@@ -1,0 +1,172 @@
+/* Estilos generales */
+body {
+    background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+    font-family: 'Roboto', sans-serif;
+    color: #2d3748;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 2.8rem;
+    font-weight: bold;
+    color: #0062cc;
+    background: linear-gradient(45deg, #007bff, #00c6ff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    margin-bottom: 2rem;
+    transition: transform 0.3s ease;
+}
+
+h1:hover {
+    transform: scale(1.05);
+}
+
+/* Estilos de las tarjetas */
+.card {
+    border-radius: 20px;
+    background: #ffffff;
+    padding: 40px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos del formulario */
+.form-control {
+    border-radius: 15px;
+    border: 1px solid #dfe3e8;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+    font-size: 1.2rem;
+    padding: 14px 18px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.form-control:focus {
+    border-color: #0062cc;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
+}
+
+label {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #495057;
+}
+
+.btn-primary {
+    background: linear-gradient(90deg, #007bff, #00c6ff);
+    border: none;
+    border-radius: 15px;
+    padding: 12px 24px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    transition: background 0.4s ease, transform 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(90deg, #0056b3, #008cff);
+    transform: translateY(-3px);
+}
+
+.btn-secondary {
+    background: #6c757d;
+    border: none;
+    border-radius: 15px;
+    padding: 12px 24px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    transition: background 0.4s ease, transform 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+    transform: translateY(-3px);
+}
+
+/* Estilos de la tabla */
+.table-card {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+}
+
+.table {
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.table thead th {
+    border-bottom: none;
+    font-size: 1.3rem;
+    font-weight: 600;
+    background: #f1f3f5;
+    color: #495057;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.table td, .table th {
+    vertical-align: middle;
+    padding: 1.5rem;
+    border-top: none;
+    font-size: 1.1rem;
+}
+
+/* Botón de home flotante */
+.btn-home {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(90deg, #007bff, #00c6ff);
+    color: white;
+    font-size: 2rem;
+    border-radius: 50%;
+    box-shadow: 0 10px 30px rgba(0, 123, 255, 0.3);
+    transition: background-color 0.4s ease, transform 0.3s ease;
+}
+
+.btn-home:hover {
+    background-color: #0056b3;
+    transform: scale(1.1);
+}
+
+.btn-home i {
+    font-size: 2.2rem;
+}
+
+/* Sombras adicionales */
+.shadow-lg {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    .btn-home {
+        width: 60px;
+        height: 60px;
+        font-size: 1.8rem;
+    }
+
+    .table th, .table td {
+        font-size: 1rem;
+    }
+}

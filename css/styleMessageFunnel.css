@@ -1,0 +1,135 @@
+/* Custom CSS for Funnel Message */
+
+/* Global styles */
+body {
+    background-color: #f4f7f9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: #5a67d8;
+}
+
+.card {
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+.btn-primary {
+    background-color: #4c51bf;
+    border-color: #4c51bf;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #434190;
+}
+
+.btn-secondary {
+    border-radius: 10px;
+    color: #4a5568;
+}
+
+.table-responsive {
+    margin-top: 1rem;
+}
+
+.table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    border: none;
+    background-color: white;
+}
+
+.table thead {
+    background-color: #e2e8f0;
+    border-radius: 10px;
+}
+
+.table th, .table td {
+    padding: 1rem;
+    text-align: center;
+    vertical-align: middle;
+    border-bottom: 1px solid #edf2f7;
+    color: #4a5568;
+    font-size: 1rem;
+}
+
+.table th {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+}
+
+.table td {
+    font-weight: 400;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #edf2f7;
+    transition: background-color 0.3s ease;
+}
+
+.table-primary {
+    background-color: #e9ecef;
+}
+
+.btn-home {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #5a67d8;
+    border-radius: 50%;
+    padding: 0.75rem;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.btn-home:hover {
+    background-color: #434190;
+}
+
+/* Form Styles */
+.form-control {
+    border-radius: 8px;
+    padding: 0.75rem;
+    box-shadow: none;
+    border: 1px solid #cbd5e0;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #5a67d8;
+    box-shadow: 0 0 0 3px rgba(90, 103, 216, 0.2);
+}
+
+label {
+    color: #4a5568;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    .form-control {
+        padding: 0.5rem;
+    }
+}
