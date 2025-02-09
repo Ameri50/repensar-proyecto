@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Función para abrir el explorador de archivos al presionar "Load"
 document.getElementById('loadBtn').addEventListener('click', function() {
     const inputFile = document.createElement('input');
     inputFile.type = 'file';
@@ -31,8 +30,8 @@ document.getElementById('loadBtn').addEventListener('click', function() {
     inputFile.addEventListener('change', function(event) {
         const file = event.target.files[0];
         if (file) {
-            document.getElementById('filePath').value = file.name; // Muestra el nombre del archivo en el textbox
-            readCSVFile(file); // Llama a la función para leer el archivo CSV
+            document.getElementById('filePath').value = file.name;
+            readCSVFile(file);
         }
     });
 });
@@ -42,29 +41,27 @@ function readCSVFile(file) {
     
     reader.onload = function(event) {
         const csvData = event.target.result;
-        console.log(csvData); // Verificar que el archivo CSV se está leyendo correctamente
-        parseCSV(csvData); // Llamar a la función para analizar los datos CSV
+        parseCSV(csvData);
     };
     
     reader.readAsText(file);
 }
 
-// Función para analizar los datos CSV y crear los objetos Lead
 function parseCSV(csvData) {
     Papa.parse(csvData, {
         complete: function(results) {
-            leads = []; // Limpiar el arreglo de leads antes de llenarlo
+            leads = []; 
 
             results.data.forEach(function(row) {
                 if (row.length >= 4) {
                     const lead = new Lead(currentId, row[0], row[1], row[2], row[3]);
                     leads.push(lead);
-                    currentId++; // Incrementar el ID después de cada inserción
+                    currentId++;
                 }
             });
             
             localStorage.setItem("leads", JSON.stringify(leads));
-            updateTable(); // Llamar a la función para actualizar la tabla
+            updateTable();
         },
         header: false
     });
@@ -72,46 +69,37 @@ function parseCSV(csvData) {
 
 function updateTable() {
     const tableBody = document.getElementById('leadTableBody');
-    tableBody.innerHTML = ''; // Limpiar la tabla antes de agregar los nuevos datos
+    tableBody.innerHTML = ''; 
 
     leads.forEach(function(lead) {
         const row = document.createElement('tr');
+        const message = `Hola%20${lead.nombre}%2C%20te%20contactamos%20desde%20nuestra%20plataforma.%20Por%20favor%2C%20ayúdanos%20respondiendo%20estas%20preguntas%20para%20mejorar%20nuestro%20servicio%3A%0A1.%20%C2%BFC%C3%B3mo%20descubri%C3%B3%20nuestra%20p%C3%A1gina%3F%20%5BRespuesta%5D%0A2.%20%C2%BFQu%C3%A9%20le%20ha%20llamado%20la%20atenci%C3%B3n%20de%20nuestro%20servicio%3F%20%5BRespuesta%5D%0A3.%20%C2%BFCu%C3%A1les%20son%20los%20criterios%20m%C3%A1s%20importantes%20para%20tomar%20su%20decisi%C3%B3n%3F%20%5BRespuesta%5D%0A4.%20%C2%BFPodemos%20agendar%20una%20llamada%20para%20finalizar%20detalles%20y%20proceder%20con%20la%20suscripci%C3%B3n%3F%20%5BRespuesta%5D%0A5.%20%C2%BFCu%C3%A1l%20es%20su%20curso%20de%20inter%C3%A9s%3F%20%5BRespuesta%5D`;
         row.innerHTML = `
-    <td>${lead.id}</td>
-    <td>${lead.nombre}</td>
-    <td>${lead.apellido}</td>
-    <td>${lead.correo}</td>
-    <td>${lead.whatsapp}</td>
-    <td>${lead.funnel}</td>
-    <td>${lead.curso}</td>
-    <td>
-        <button class="btn btn-warning btn-sm editBtn" data-id="${lead.id}">Editar</button>
-        <button class="btn btn-danger btn-sm deleteBtn" data-id="${lead.id}">Eliminar</button>
-        <a href="https://wa.me/${lead.whatsapp.replace(/[^0-9]/g, '')}?text=Hola%20${lead.nombre}%2C%20te%20contactamos%20desde%20nuestra%20plataforma%20para%20ofrecerte%20nuestro%20nuevo%20curso%20en%20${lead.curso}." target="_blank" class="btn btn-success btn-sm">WhatsApp</a>
-    </td>
-`;
+            <td>${lead.id}</td>
+            <td>${lead.nombre}</td>
+            <td>${lead.apellido}</td>
+            <td>${lead.correo}</td>
+            <td>${lead.whatsapp}</td>
+            <td>${lead.funnel}</td>
+            <td>${lead.curso}</td>
+            <td>
+                <button class="btn btn-warning btn-sm editBtn" data-id="${lead.id}">Editar</button>
+                <button class="btn btn-danger btn-sm deleteBtn" data-id="${lead.id}">Eliminar</button>
+                <a href="https://wa.me/${lead.whatsapp.replace(/[^0-9]/g, '')}?text=${message}" target="_blank" rel="noopener noreferrer" class="btn btn-success btn-sm">WhatsApp</a>
+                <button class="btn btn-light btn-sm confirmation-button" id="confirmationStatus-${lead.id}" data-id="${lead.id}">En Proceso</button>
+            </td>
+            <td>${lead.response1 || ''}</td>
+            <td>${lead.response2 || ''}</td>
+            <td>${lead.response3 || ''}</td>
+            <td>${lead.response4 || ''}</td>
+            <td>${lead.response5 || ''}</td>
+        `;
 
         tableBody.appendChild(row);
     });
-
-    // Delegar el evento de clic en el botón de editar
-    document.getElementById('leadTableBody').addEventListener('click', function(event) {
-        if (event.target.classList.contains('editBtn')) {
-            const leadId = event.target.getAttribute('data-id');
-            editLead(leadId); // Llama a la función de editar
-        }
-    });
-
-    // Delegar el evento de clic en el botón de eliminar
-    document.getElementById('leadTableBody').addEventListener('click', function(event) {
-        if (event.target.classList.contains('deleteBtn')) {
-            const leadId = event.target.getAttribute('data-id');
-            deleteLead(leadId); // Llama a la función de eliminar
-        }
-    });
 }
 
-// Función para editar un lead
+
 function editLead(leadId) {
     const lead = leads.find(lead => lead.id == leadId);
     
@@ -125,7 +113,7 @@ function editLead(leadId) {
         document.getElementById('editLeadId').value = lead.id;
 
         const editModal = new bootstrap.Modal(document.getElementById('editLeadModal'), {
-            backdrop: false // Evita que la pantalla se oscurezca
+            backdrop: false
         });
         editModal.show();
     } 
@@ -136,7 +124,6 @@ document.getElementById('saveChangesBtn').addEventListener('click', function() {
     const lead = leads.find(lead => lead.id == leadId);
 
     if (lead) {
-        // Actualizar los datos del lead con los nuevos valores del modal
         lead.nombre = document.getElementById('editName').value;
         lead.apellido = document.getElementById('editLastName').value;
         lead.correo = document.getElementById('editEmail').value;
@@ -144,77 +131,53 @@ document.getElementById('saveChangesBtn').addEventListener('click', function() {
         lead.funnel = document.getElementById('editFunnel').value;
         lead.curso = document.getElementById('editCurso').value;
 
-        // Guardar los leads actualizados en el localStorage
         localStorage.setItem('leads', JSON.stringify(leads));
 
-        // Actualizar únicamente la fila editada
         const row = document.querySelector(`button[data-id="${leadId}"]`).parentNode.parentNode;
-        row.innerHTML = `
-            <td>${lead.id}</td>
-            <td>${lead.nombre}</td>
-            <td>${lead.apellido}</td>
-            <td>${lead.correo}</td>
-            <td>${lead.whatsapp}</td>
-            <td>${lead.funnel}</td>
-            <td>${lead.curso}</td>
-            <td>
-                <button class="btn btn-warning btn-sm editBtn" data-id="${lead.id}">Editar</button>
-                <button class="btn btn-danger btn-sm deleteBtn" data-id="${lead.id}">Eliminar</button>
-            </td>
-        `;
+        row.cells[1].textContent = lead.nombre;
+        row.cells[2].textContent = lead.apellido;
+        row.cells[3].textContent = lead.correo;
+        row.cells[4].textContent = lead.whatsapp;
+        row.cells[5].textContent = lead.funnel;
+        row.cells[6].textContent = lead.curso;
 
-        // Cerrar el modal de edición
         const editModal = bootstrap.Modal.getInstance(document.getElementById('editLeadModal'));
         editModal.hide();
     }
 });
 
-// Función para eliminar un lead
 function deleteLead(leadId) {
     if (confirm('¿Estás seguro de que deseas eliminar este lead?')) {
         leads = leads.filter(lead => lead.id != leadId);
-        localStorage.setItem('leads', JSON.stringify(leads)); // Actualizar localStorage
-        updateTable(); // Actualizar la tabla
+        localStorage.setItem('leads', JSON.stringify(leads));
+        updateTable();
     }
 }
 
-// Función para redirigir al usuario al presionar el botón "Home"
-document.getElementById('homeBtn').addEventListener('click', function() {
-    window.location.href = 'index.html'; // Redirige a la misma página
-});
-
-// Función para agregar un nuevo lead desde el formulario
 document.getElementById('addLeadForm').addEventListener('submit', function(event) {
-    event.preventDefault();  // Evitar que el formulario recargue la página
+    event.preventDefault();
 
-    // Obtener los valores del formulario
     const nombre = document.getElementById('newName').value;
     const apellido = document.getElementById('newLastName').value;
     const correo = document.getElementById('newEmail').value;
     const whatsapp = document.getElementById('newWhatsapp').value;
-    const funnel = document.getElementById('newFunnel').value;  // Nuevo campo de Funnel
-    const curso = document.getElementById('newCurso').value;    // Nuevo campo de Curso
+    const funnel = document.getElementById('newFunnel').value;
+    const curso = document.getElementById('newCurso').value;
 
-    // Crear un nuevo lead y añadirlo al array leads
     const newLead = {
         id: currentId,
         nombre: nombre,
         apellido: apellido,
         correo: correo,
         whatsapp: whatsapp,
-        funnel: funnel,  // Añadir funnel
-        curso: curso     // Añadir curso
+        funnel: funnel,
+        curso: curso
     };
 
     leads.push(newLead);
-    currentId++;  // Incrementar el ID
-
-    // Guardar los leads en el localStorage
+    currentId++;
     localStorage.setItem('leads', JSON.stringify(leads));
-
-    // Limpiar el formulario
-    document.getElementById('addLeadForm').reset();
-
-    // Actualizar la tabla
     updateTable();
+
+    document.getElementById('addLeadForm').reset();
 });

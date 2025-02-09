@@ -1,154 +1,174 @@
-/* General styles */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f7f7f7;
-    color: #333;
+/* ===============================
+   RESET Y CONFIGURACIÓN GLOBAL
+   =============================== */
+   * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-}
-
-.container {
+  }
+  
+  body {
+    background-color: #f4f6f9; /* Fondo claro y suave */
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+  }
+  
+  /* ===============================
+     CONTENEDORES Y SECCIONES
+     =============================== */
+  .container {
     max-width: 1200px;
     margin: 0 auto;
+  }
+  
+  /* Clase para separar secciones en cuadros */
+  .section-box {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
     padding: 20px;
-}
-
-h1 {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #007bff;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* ===============================
+     TIPOGRAFÍA Y ENCABEZADOS
+     =============================== */
+  h1, h2 {
     margin-bottom: 20px;
-}
-
-/* Input section */
-#filePath {
-    border: none;
-    background-color: #e9ecef;
-    border-radius: 5px;
-    padding: 10px;
-    width: 80%;
-}
-
-#loadBtn {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-#loadBtn:hover {
-    background-color: #0056b3;
-}
-
-/* Table styles */
-.table-responsive {
-    margin-top: 20px;
-}
-
-.table {
-    background-color: #fff;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-th, td {
-    padding: 12px;
-    text-align: left;
-}
-
-thead {
-    background-color: #007bff;
-    color: white;
-}
-
-tbody tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-td {
-    font-size: 1rem;
-}
-
-/* Form section */
-form {
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    margin-top: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-label {
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-input {
-    width: 100%;
+    text-align: center;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    color: #007bff; /* Azul primario */
+  }
+  
+  h2 {
+    font-size: 2rem;
+    color: #28a745; /* Verde para secciones de éxito/encuesta */
+  }
+  
+  /* ===============================
+     SECCIÓN DE INPUT Y BOTONES
+     =============================== */
+  .d-flex {
+    display: flex;
+    gap: 10px; /* Espacio entre elementos */
+    flex-wrap: wrap;
+  }
+  
+  #filePath {
+    flex-grow: 1;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-button {
-    background-color: #007bff;
-    color: white;
+    border-radius: 4px;
+  }
+  
+  /* ===============================
+     FORMULARIOS
+     =============================== */
+  form {
+    margin-top: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  /* ===============================
+     BOTONES
+     =============================== */
+  .btn {
     padding: 10px 20px;
     border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-/* Modal styles */
-.modal-content {
-    border-radius: 10px;
-    padding: 20px;
-}
-
-.modal-header {
-    border-bottom: none;
-}
-
-.modal-footer {
-    border-top: none;
-}
-
-/* Home Button */
-#homeBtn {
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-primary {
     background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 50%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s;
-}
-
-#homeBtn:hover {
+    color: #fff;
+  }
+  
+  .btn-primary:hover {
     background-color: #0056b3;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-    #filePath {
-        width: 100%;
+  }
+  
+  /* ===============================
+     TABLAS
+     =============================== */
+  .table-responsive {
+    overflow-x: auto;
+    margin-top: 20px;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table th, .table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+  
+  .table thead {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  /* ===============================
+     SECCIÓN DE RESULTADOS DE ENCUESTA
+     =============================== */
+  #surveyResults {
+    background-color: #e8f5e9; /* Verde muy claro */
+    border: 1px solid #c8e6c9;
+    border-radius: 4px;
+    padding: 20px;
+    margin-top: 20px;
+  }
+  
+  /* ===============================
+     MODAL
+     =============================== */
+  .modal-content {
+    border-radius: 8px;
+  }
+  
+  /* ===============================
+     BOTÓN HOME
+     =============================== */
+  #homeBtn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 999;
+  }
+  
+  /* ===============================
+     RESPONSIVE
+     =============================== */
+  @media (max-width: 768px) {
+    .d-flex {
+      flex-direction: column;
     }
-
-    .table {
-        font-size: 0.9rem;
-    }
-
-    h1 {
-        font-size: 2rem;
-    }
-}
+  }
+  
