@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// Cargar CSV y guardar en localStorage
 document.getElementById('loadCsvBtn').addEventListener('click', () => {
     const csvFile = document.getElementById('csvFileInput').files[0];
 
@@ -38,6 +39,7 @@ document.getElementById('loadCsvBtn').addEventListener('click', () => {
     }
 });
 
+// Renderizar la tabla de contactos
 function renderContactTable(data) {
     const tableBody = document.getElementById('contactTable');
     tableBody.innerHTML = '';  // Limpiar tabla existente
@@ -61,6 +63,41 @@ function renderContactTable(data) {
     });
 }
 
+// Agregar un nuevo contacto
+document.getElementById('addContactBtn').addEventListener('click', function() {
+    const name = document.getElementById('addName').value;
+    const lastName = document.getElementById('addLastName').value;
+    const email = document.getElementById('addEmail').value;
+    const whatsapp = document.getElementById('addWhatsapp').value;
+    const funnel = document.getElementById('addFunnel').value;
+    const curso = document.getElementById('addCurso').value;
+
+    // Validar que no haya campos vacíos
+    if (name && lastName && email && whatsapp) {
+        let data = JSON.parse(localStorage.getItem('contactsData')) || [];
+        const newContact = [name, lastName, email, whatsapp, funnel, curso];
+        
+        // Agregar el nuevo contacto a los datos
+        data.push(newContact);
+
+        // Guardar los datos actualizados en localStorage
+        localStorage.setItem('contactsData', JSON.stringify(data));
+
+        // Volver a renderizar la tabla con los datos actualizados
+        renderContactTable(data);
+
+        // Cerrar el modal después de agregar
+        const modal = bootstrap.Modal.getInstance(document.getElementById('addContactModal'));
+        modal.hide();
+
+        // Limpiar el formulario
+        document.getElementById('addContactForm').reset();
+    } else {
+        alert("Por favor, llena todos los campos.");
+    }
+});
+
+// Editar un contacto
 function editContact(index) {
     const data = JSON.parse(localStorage.getItem('contactsData'));
 
@@ -77,6 +114,7 @@ function editContact(index) {
     document.getElementById('editCurso').value = contact[5];
 }
 
+// Guardar los cambios editados
 document.getElementById('saveChangesBtn').addEventListener('click', () => {
     const data = JSON.parse(localStorage.getItem('contactsData'));
 
@@ -99,6 +137,7 @@ document.getElementById('saveChangesBtn').addEventListener('click', () => {
     editContactModal.hide();
 });
 
+// Eliminar un contacto
 function deleteContact(index) {
     let data = JSON.parse(localStorage.getItem('contactsData'));
 

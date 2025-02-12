@@ -7,56 +7,204 @@
     <!-- Bootstrap 5.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="./css/style.css" rel="stylesheet">
+    <link href="css/styleIndex.css" rel="stylesheet">
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="#">Message System</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="load.html">Load</a></li>
-                    <li class="nav-item"><a class="nav-link" href="messageFunnel.html">Funnel</a></li>
-                    <li class="nav-item"><a class="nav-link" href="messageCourse.html">Course</a></li>
-                    <li class="nav-item"><a class="nav-link" href="service.html">Service</a></li>
-                    <li class="nav-item"><a class="nav-link" href="statics.html">Statics</a></li>
-                </ul>
+
+<!-- Hero Section -->
+<section class="hero-section d-flex align-items-center">
+    <div class="container">
+        <div class="logo">RE</div>
+<!-- Menú desplegable -->
+<div class="nav-toggle">
+    <button id="toggle-button">&#9776;</button> <!-- Icono de menú -->
+</div>
+<div class="nav-menu" id="nav-menu">
+    <ul>
+        <li><a href="load.html">Message</a></li>
+        <li><a href="service.html">Contacts</a></li>
+        <li><a href="messageCourse.html">Course</a></li>
+        <li><a href="messageFunnel.html">Recommendations</a></li>
+        <li><a href="statics.html">statistics</a></li>
+    </ul>
+</div>
+
+
+        <div class="content">
+            <!-- Cuadro negro sobre la imagen -->
+            <div class="overlay">
+                <p>Somos más que una escuela. Con alumnos de +13 países de Latam y España facilitamos talleres y programas como Service Design, Product Design, DesignOps, Design Management, Microinteracciones y mucho más. 2014 - ∞</p>
             </div>
         </div>
-    </nav>
+    </div>
+</section>
 
-    <!-- Main Content -->
-    <main class="d-flex flex-column justify-content-center align-items-center text-center vh-100">
-        <div class="container">
-            <div class="row align-items-center">
-                <!-- Logo Section -->
-                <div class="col-md-6 text-center">
-                    <a href="https://bento.me/repensarok" target="_blank">
-                        <img src="images/R3.png" alt="Reempresa Logo" class="animated-logo">
+
+<!-- Eventos Repensantes Section -->
+<section class="eventos-section py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Eventos Repensantes -->
+            <div class="col-md-6">
+                <div class="card p-4" style="border-radius: 30px;">
+                    <h3 class="mb-4">Eventos repensantes</h3>
+                    <ul class="list-unstyled">
+                        <li><span>✨</span> <a href="https://lu.ma/eventosrepensar class="text-decoration-none text-primary">Summer Summit 2025 by Repensar</a></li>
+                        <li><span>⬛</span> <a href="https://form.typeform.com/to/g15sbN7K" class="text-decoration-none text-primary">Conviértete en aliado del Summer Summit</a></li>
+                        <li><span>✨</span> <a href="https://lu.ma/6k7qaamx" class="text-decoration-none text-primary">Suscríbete a Eventos repensantes</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Summer Summit 2025 Card -->
+            <div class="col-md-6">
+                <div class="card p-4" style="border-radius: 30px;">
+                    <a href="https://lu.ma/6k7qaamx">
+                        <img src="images/summer.jpeg" alt="Summer Summit" class="img-fluid rounded">
                     </a>
                 </div>
-                <!-- Text Section -->
-                <div class="col-md-6 text-center">
-                    <p>
-                        Somos más que una escuela. Con alumnos de +13 países de Latam y España facilitamos talleres y programas como Service Design, 
-                        Product Design, DesignOps, Design Management, Microinteracciones y mucho más.2014 - ∞ </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Talleres Section -->
+<section class="talleres-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card p-4" style="border-radius: 30px;">
+                    <a href="https://example.com/taller-service-design">
+                        <img src="images/lpatop.jpeg" alt="Taller Service Design" class="img-fluid rounded">
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card p-4" style="border-radius: 30px;">
+                    <h3>¿Quieres información de talleres y programas?</h3>
+                    <p>Si quieres más información sobre todo lo que te llama la atención de nuestra web, escríbenos a este link:</p>
+                    <a href="https://api.whatsapp.com/send?phone=+51957227476&text=%C2%A1Hola!%20Mi%20nombre%20es...%20Me%20gustar%C3%ADa%20saber%20m%C3%A1s%20sobre%20los%20talleres%20y%20programas%20de%20Repensar,%20gracias." class="btn btn-success">¡COMENCEMOS!</a>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
+</section>
 
-    <!-- Footer -->
-    <footer class="footer bg-dark text-white text-center py-3">
-        <p class="mb-0">
-            <a href="https://bento.me/entertechschool" target="_blank" class="text-light fw-bold">Enter Tech School - 2025</a>
-        </p>
-    </footer>
+<!-- Talleres Postulación Section -->
+<section class="postulacion-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card p-4" style="border-radius: 30px;">
+                    <a href="https://example.com/taller-service-design">
+                        <img src="images/gmail.jpeg" alt="Taller Service Design" class="img-fluid rounded">
+                    </a>
+                </div>
+            </div>    
+            <div class="col-md-6">
+                <div class="card p-4" style="border-radius: 30px;">
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfNi-qCyr1IvJqQDC6mWoks4MUdBCEdy_kVO4GP4z_lfUKgbg/viewform?usp=send_form" class="btn btn-primary">Postula al Taller Service Design Avanzado</a>
+                </div>
+                <div class="card p-4" style="border-radius: 30px;">
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScQz-Cvzz1VdHBEJufCxSrez4QIisEkEUqGJj06E1ODqfpjVw/viewform" class="btn btn-primary">Postula al Programa UI Design Avanzado</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- UI Design Estudio Section -->
+<section class="ui-design-estudio-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card p-4" style="border-radius: 30px;">
+                    <a href="https://example.com/estudio-ui-design">
+                        <img src="images/UX/UI.jpeg" alt="Estudio UI Design" class="img-fluid rounded">
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card p-4" style="border-radius: 30px;">
+                    <h3>Estudio UI Design en Latam</h3>
+                    <p>Descarga el Estudio Situación del UI Designer en Latam:</p>
+                    <a href="https://app-na1.hubspotdocuments.com/documents/22552192/view/840233655?accessId=5a2ee5 class="btn btn-link">Descargar Estudio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Comunidad Exclusiva -->
+<section class="comunidad-exclusiva-section py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Columna de Comunidad Exclusiva -->
+            <div class="col-md-6 d-flex align-items-center justify-content-center">
+                <div class="card p-4" style="border-radius: 30px; width: 100%; max-width: 500px;">
+                    <h4 class="text-center mb-4">Comunidad exclusiva</h4>
+                    <div class="text-center">
+                        <img src="img/logo.png" alt="Telegram Logo" class="img-fluid" style="width: 40px; margin-bottom: 15px;">
+                        <a href="https://t.me/comunidadrepensar" class="text-decoration-none text-primary d-block">Comunidad exclusiva</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Columna de Imagen Representativa -->
+            <div class="col-md-6 d-flex align-items-center justify-content-center">
+                <div class="card p-4" style="border-radius: 30px; width: 100%; max-width: 500px;">
+                    <a href="https://t.me/joinchat/pdQwpInCzZZkNDkx">
+                        <img src="images/comunidad.jpeg" alt="Comunidad Exclusiva" class="img-fluid rounded" style="border-radius: 30px;">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Redes Sociales Section -->
+<section class="redes-sociales-section py-5">
+    <div class="container">
+        <h3 class="text-center mb-5">Nuestras redes sociales</h3>
+        <div class="row">
+            <!-- Comunidad Exclusiva -->
+            <div class="col-md-4 text-center">
+                <div class="p-3">
+                    <h4>Comunidad exclusiva</h4>
+                    <a href="https://www.linkedin.com/404/" target="_blank">
+                        <img src="images/comunidad.jpeg" alt="Comunidad Exclusiva" class="img-fluid rounded">
+                    </a>
+                </div>
+            </div>
+            <!-- YouTube Section -->
+            <div class="col-md-4 text-center">
+                <div class="p-3">
+                    <h4>Canal con alto contenido de valor</h4>
+                    <a href="https://www.youtube.com/@repensaroficial" target="_blank">
+                        <img src="img/youtube.png" alt="YouTube" class="img-fluid rounded">
+                    </a>
+                    <a href="https://www.youtube.com/c/Repensar" class="btn btn-danger mt-3" target="_blank">Suscríbete</a>
+                </div>
+            </div>
+            <!-- Instagram Section -->
+            <div class="col-md-4 text-center">
+                <div class="p-3">
+                    <h4>Síguenos en Instagram</h4>
+                    <a href="https://www.instagram.com/repensar.la/" target="_blank">
+                        <img src="img/instagram.png" alt="Instagram" class="img-fluid rounded">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Bootstrap 5.3 JS -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script  type="module" src="js/toggleMenu.js"></script>
+
+
 </body>
 </html>

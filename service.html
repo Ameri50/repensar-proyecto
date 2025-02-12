@@ -49,6 +49,9 @@
             <button id="loadCsvBtn" class="btn btn-primary">Cargar CSV</button>
         </div>
 
+        <!-- Botón para abrir el modal de agregar nuevo contacto -->
+        <button class="btn btn-success mb-4" data-bs-toggle="modal" data-bs-target="#addContactModal">Agregar Contacto</button>
+
         <!-- Tabla para mostrar los contactos -->
         <table class="table table-bordered">
             <thead>
@@ -69,16 +72,57 @@
         </table>
     </div>
 
-    <!-- Modal para editar contacto -->
-    <div class="modal fade" id="editContactModal" tabindex="-1" aria-labelledby="editContactModalLabel" aria-hidden="true">
+    <!-- Modal para agregar nuevo contacto -->
+    <div class="modal fade" id="addContactModal" tabindex="-1" aria-labelledby="addContactModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="editContactModalLabel">Editar Contacto</h5>
+            <h5 class="modal-title" id="addContactModalLabel">Agregar Contacto</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form id="editContactForm">
+            <form id="addContactForm">
+                <div class="mb-3">
+                    <label for="addName" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="addName" required>
+                </div>
+                <div class="mb-3">
+                    <label for="addLastName" class="form-label">Apellido</label>
+                    <input type="text" class="form-control" id="addLastName" required>
+                </div>
+                <div class="mb-3">
+                    <label for="addEmail" class="form-label">Correo</label>
+                    <input type="email" class="form-control" id="addEmail" required>
+                </div>
+                <div class="mb-3">
+                    <label for="addWhatsapp" class="form-label">WhatsApp</label>
+                    <input type="text" class="form-control" id="addWhatsapp" required>
+                </div>
+                <div class="mb-3">
+                    <label for="addFunnel" class="form-label">Funnel</label>
+                    <input type="text" class="form-control" id="addFunnel">
+                </div>
+                <div class="mb-3">
+                    <label for="addCurso" class="form-label">Curso</label>
+                    <input type="text" class="form-control" id="addCurso">
+                </div>
+                <button type="button" class="btn btn-success" id="addContactBtn">Agregar Contacto</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- Modal de edición de Lead -->
+  <div class="modal fade" id="editLeadModal" tabindex="-1" aria-labelledby="editLeadModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editLeadModalLabel">Editar contacto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="editLeadId">
                 <div class="mb-3">
                     <label for="editName" class="form-label">Nombre</label>
                     <input type="text" class="form-control" id="editName">
@@ -97,18 +141,25 @@
                 </div>
                 <div class="mb-3">
                     <label for="editFunnel" class="form-label">Funnel</label>
-                    <input type="text" class="form-control" id="editFunnel">
+                    <select id="editFunnel" class="form-control">
+                        <option value="Awareness">Awareness (Conocimiento inicial)</option>
+                        <option value="Interest">Interest (Interés demostrado)</option>
+                        <option value="Consideration">Consideration (Evaluando opciones)</option>
+                        <option value="Conversion">Conversion (Listo para comprar)</option>
+                    </select>
                 </div>
                 <div class="mb-3">
                     <label for="editCurso" class="form-label">Curso</label>
                     <input type="text" class="form-control" id="editCurso">
                 </div>
-                <button type="button" class="btn btn-success" id="saveChangesBtn">Guardar Cambios</button>
-            </form>
-          </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" id="saveChangesBtn" class="btn btn-primary">Guardar cambios</button>
+            </div>
         </div>
-      </div>
     </div>
+</div>
 
     <!-- Bootstrap JS and Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

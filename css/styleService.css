@@ -13,9 +13,11 @@ body {
     font-family: Arial, sans-serif;
 }
 
-.color-menu{
-    color: var(--white);
+/* Personaliza los estilos aquí */
+.color-menu {
+    color: white;
 }
+
 
 .text-footer{
     color: var(--white);
@@ -30,7 +32,6 @@ body {
 
 .navbar-brand {
     font-weight: bold;
-    font-size: 1.5rem;
 }
 
 /* Main Content Styles */
