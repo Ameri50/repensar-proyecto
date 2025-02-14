@@ -19,8 +19,8 @@ class Lead {
                 <td>${this.apellido}</td>
                 <td>${this.correo}</td>
                 <td>${this.whatsapp}</td>
-                <td>${this.funnel}</td>
-                <td>${this.course}</td>
+                <td class="funnel">${this.funnel}</td>
+                <td class="course">${this.course}</td>
                 <td>
                     <button class="btn btn-warning btn-sm" onclick="editLead(${this.id})">Editar</button>
                     <button class="btn btn-danger btn-sm" onclick="deleteLead(${this.id})">Eliminar</button>
@@ -29,6 +29,7 @@ class Lead {
             </tr>
         `;
     }
+    
 }
 
 // Array para almacenar los leads
