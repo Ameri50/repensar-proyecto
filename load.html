@@ -1,164 +1,122 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Data</title>
-
-    <!-- Custom CSS -->
+    <title>Gestión de Leads</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/styleLoad.css">
-    
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
 </head>
-
 <body>
 
-    <div class="container mt-5">
-        <h1 class="text-center text-primary">Load Data</h1>
+    <div class="container-fluid">
+     <!-- Barra de búsqueda -->
+    <div class="search-bar mt-3">
+        <input type="text" class="form-control" placeholder="Buscar">
+    </div>
 
-        <!-- Input Section -->
-        <div class="d-flex justify-content-between mt-4">
-            <input type="text" id="filePath" class="form-control" placeholder="Select CSV file" readonly>
-            <button id="loadBtn" class="btn btn-primary ms-2">Load CSV</button>
+    <!-- Sección para subir archivos Excel -->
+    <div class="upload-section mt-3 text-center">
+        <input type="file" id="fileInput" class="form-control d-inline-block w-50" accept=".xls,.xlsx,.csv">
+        <button class="btn btn-primary" onclick="handleFileUpload()">Subir Archivo</button>
+
+    </div>
+
+    <div class="row">
+        <!-- Tabla de datos -->
+        <div class="col-md-6">
+            <div class="table-container mt-3">
+                <table class="table table-striped table-bordered">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Email</th>
+                            <th>WhatsApp</th>
+                            <th>Funnel</th>
+                            <th>Curso</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leadsTableBody">
+                        <!-- Las filas se agregarán dinámicamente aquí -->
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <!-- Survey Results Section -->
-        <div class="mt-5">
-            <h2 class="text-center text-success">Resultados de la Encuesta</h2>
-            <div id="surveyResults" class="p-3 border border-success rounded">
-                <!-- Aquí se mostrarán las respuestas de la encuesta -->
-                <p>Aún no se ha enviado ninguna respuesta.</p>
+        <!-- Formulario de ingreso de datos -->
+        <div class="col-md-6">
+            <div class="text-center mt-3">
+                <button class="btn btn-danger btn-lg" data-bs-toggle="modal" data-bs-target="#addLeadModal">AGREGAR DATOS</button>
             </div>
-        </div>
 
-        <!-- Formulario para agregar Lead -->
-        <form id="addLeadForm" class="mt-4">
-            <div class="form-group">
-                <label for="newName">Nombre:</label>
-                <input type="text" id="newName" class="form-control" required>
+            <!-- Modal para agregar datos -->
+            <div class="modal fade" id="addLeadModal" tabindex="-1" aria-labelledby="addLeadModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addLeadModalLabel">Agregar Lead</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="addLeadForm">
+                                <div class="mb-3">
+                                    <label for="newName" class="form-label">Nombre</label>
+                                    <input type="text" id="newName" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="newLastName" class="form-label">Apellido</label>
+                                    <input type="text" id="newLastName" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="newEmail" class="form-label">Email</label>
+                                    <input type="email" id="newEmail" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="newWhatsapp" class="form-label">WhatsApp</label>
+                                    <input type="text" id="newWhatsapp" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="newFunnel" class="form-label">Funnel</label>
+                                    <input type="text" id="newFunnel" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="newCurso" class="form-label">Curso</label>
+                                    <input type="text" id="newCurso" class="form-control">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" form="addLeadForm" class="btn btn-primary">Agregar Lead</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="newLastName">Apellido:</label>
-                <input type="text" id="newLastName" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="newEmail">Correo:</label>
-                <input type="email" id="newEmail" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="newWhatsapp">WhatsApp:</label>
-                <input type="text" id="newWhatsapp" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="newFunnel">Funnel:</label>
-                <select id="newFunnel" class="form-control" required>
-                    <option value="Awareness">Awareness (Conocimiento inicial)</option>
-                    <option value="Interest">Interest (Interés demostrado)</option>
-                    <option value="Consideration">Consideration (Evaluando opciones)</option>
-                    <option value="Conversion">Conversion (Listo para comprar)</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="newCurso">Curso:</label>
-                <input type="text" id="newCurso" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-primary mt-3">Agregar Lead</button>
-        </form>
 
-        <!-- Tabla de Leads -->
-        <div class="table-responsive mt-4">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Email</th>
-                        <th>Whatsapp</th>
-                        <th>Funnel</th>
-                        <th>Curso</th>
-                        <th>Acciones</th> <!-- Columna de acciones para Editar y Eliminar -->
-                    </tr>
-                </thead>
-                <tbody id="leadTableBody">
-                    <!-- Las filas de la tabla se agregarán dinámicamente aquí -->
-                </tbody>
-            </table>
         </div>
     </div>
 
-    <!-- Modal de edición de Lead -->
-    <div class="modal fade" id="editLeadModal" tabindex="-1" aria-labelledby="editLeadModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editLeadModalLabel">Editar Lead</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" id="editLeadId">
-                    <div class="mb-3">
-                        <label for="editName" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="editName">
-                    </div>
-                    <div class="mb-3">
-                        <label for="editLastName" class="form-label">Apellido</label>
-                        <input type="text" class="form-control" id="editLastName">
-                    </div>
-                    <div class="mb-3">
-                        <label for="editEmail" class="form-label">Correo</label>
-                        <input type="email" class="form-control" id="editEmail">
-                    </div>
-                    <div class="mb-3">
-                        <label for="editWhatsapp" class="form-label">WhatsApp</label>
-                        <input type="text" class="form-control" id="editWhatsapp">
-                    </div>
-                    <div class="mb-3">
-                        <label for="editFunnel" class="form-label">Funnel</label>
-                        <select id="editFunnel" class="form-control">
-                            <option value="Awareness">Awareness (Conocimiento inicial)</option>
-                            <option value="Interest">Interest (Interés demostrado)</option>
-                            <option value="Consideration">Consideration (Evaluando opciones)</option>
-                            <option value="Conversion">Conversion (Listo para comprar)</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="editCurso" class="form-label">Curso</label>
-                        <input type="text" class="form-control" id="editCurso">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" id="saveChangesBtn" class="btn btn-primary">Guardar cambios</button>
-                </div>
-            </div>
-        </div>
+    <!-- Sección de resultados -->
+    <div class="text-center mt-5">
+        <button class="btn btn-danger btn-lg">RESULTADOS DE LA ENCUESTA</button>
     </div>
 
+    <div class="resultados mt-3"></div>
 
-    <!-- Botón Home -->
-    <a href="index.html" id="homeBtn" class="btn btn-primary position-fixed bottom-0 start-0 m-3">
-        <i class="bi bi-house-fill"></i> Home
-    </a>
+</div>
 
-    <!-- Scripts -->
-    <!-- PapaParse para analizar archivos CSV -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-    
-    <!-- Archivos JS -->
-    <script src="./js/global.js"></script>
-    <script src="./js/Lead.js"></script>
-    <script src="./js/Load.js"></script>
+<!-- Bootstrap JS y dependencias -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+<!-- Archivos JS propios -->
+<script type="module" src="js/Load.js"></script>
+<script type="module" src="js/Lead.js"></script>
 
 </body>
-
 </html>

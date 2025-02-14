@@ -1,174 +1,40 @@
-/* ===============================
-   RESET Y CONFIGURACIÓN GLOBAL
-   =============================== */
-   * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  
-  body {
-    background-color: #f4f6f9; /* Fondo claro y suave */
-    font-family: 'Roboto', sans-serif;
-    color: #333;
-    line-height: 1.6;
-    padding: 20px;
-  }
-  
-  /* ===============================
-     CONTENEDORES Y SECCIONES
-     =============================== */
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  /* Clase para separar secciones en cuadros */
-  .section-box {
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 30px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  }
-  
-  /* ===============================
-     TIPOGRAFÍA Y ENCABEZADOS
-     =============================== */
-  h1, h2 {
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  h1 {
-    font-size: 2.5rem;
-    color: #007bff; /* Azul primario */
-  }
-  
-  h2 {
-    font-size: 2rem;
-    color: #28a745; /* Verde para secciones de éxito/encuesta */
-  }
-  
-  /* ===============================
-     SECCIÓN DE INPUT Y BOTONES
-     =============================== */
-  .d-flex {
-    display: flex;
-    gap: 10px; /* Espacio entre elementos */
-    flex-wrap: wrap;
-  }
-  
-  #filePath {
-    flex-grow: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  /* ===============================
-     FORMULARIOS
-     =============================== */
-  form {
-    margin-top: 20px;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-  
-  .form-control {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  /* ===============================
-     BOTONES
-     =============================== */
-  .btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .btn-primary {
-    background-color: #007bff;
-    color: #fff;
-  }
-  
-  .btn-primary:hover {
-    background-color: #0056b3;
-  }
-  
-  /* ===============================
-     TABLAS
-     =============================== */
-  .table-responsive {
-    overflow-x: auto;
-    margin-top: 20px;
-  }
-  
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .table th, .table td {
-    padding: 12px;
-    border: 1px solid #ddd;
-    text-align: center;
-  }
-  
-  .table thead {
-    background-color: #007bff;
-    color: #fff;
-  }
-  
-  /* ===============================
-     SECCIÓN DE RESULTADOS DE ENCUESTA
-     =============================== */
-  #surveyResults {
-    background-color: #e8f5e9; /* Verde muy claro */
-    border: 1px solid #c8e6c9;
-    border-radius: 4px;
-    padding: 20px;
-    margin-top: 20px;
-  }
-  
-  /* ===============================
-     MODAL
-     =============================== */
-  .modal-content {
-    border-radius: 8px;
-  }
-  
-  /* ===============================
-     BOTÓN HOME
-     =============================== */
-  #homeBtn {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    z-index: 999;
-  }
-  
-  /* ===============================
-     RESPONSIVE
-     =============================== */
-  @media (max-width: 768px) {
-    .d-flex {
-      flex-direction: column;
-    }
-  }
-  
+body {
+  background-color: white;
+  font-family: Arial, sans-serif;
+}
+
+.search-bar {
+  background-color: black;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.search-bar input {
+  background-color: white;
+  color: black;
+}
+
+.table-container {
+  max-height: 500px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+}
+
+.input-purple {
+  background-color: purple;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.input-purple:focus {
+  outline: none;
+  box-shadow: 0 0 5px #800080;
+}
+
+.resultados {
+  background-color: black;
+  height: 100px;
+  border-radius: 5px;
+}
