@@ -9,11 +9,16 @@ document.addEventListener("DOMContentLoaded", () => {
     // Escuchar la selección de archivo CSV
     document.getElementById("fileInput").addEventListener("change", handleFileSelect, false);
 
-    // Delegar eventos para editar y eliminar usuarios
-    document.querySelector("#leadsTableBody").addEventListener("click", function (event) {
+    // Delegar eventos para editar, eliminar y contactar usuarios
+    document.querySelector("#leadsTableBody")?.addEventListener("click", function (event) {
         const id = parseInt(event.target.getAttribute("data-id"));
+        
         if (event.target.classList.contains("btn-editar")) editUser(id);
         if (event.target.classList.contains("btn-eliminar")) deleteUser(id);
+        if (event.target.classList.contains("whatsapp-btn")) {
+            const phone = event.target.getAttribute("data-id");
+            if (phone) contactWhatsApp(phone);
+        }
     });
 
     // Manejar el guardado de cambios en el modal de edición
@@ -21,9 +26,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Escuchar entrada de búsqueda
     document.getElementById("searchInput").addEventListener("input", filterUsers);
-
-    // Escuchar el evento del botón de carga de archivo
-    document.getElementById('upload-section').addEventListener('click', handleFileUpload);
 });
 
 // Filtrar usuarios en la tabla
@@ -34,20 +36,49 @@ function filterUsers() {
     });
 }
 
-// Manejar la subida de archivos CSV
+// Manejar la subida de archivos CSV o Excel
 function handleFileSelect(event) {
     const file = event.target.files[0];
-    if (file && file.name.endsWith(".csv")) {
-        const reader = new FileReader();
+    if (!file) return;
+
+    const reader = new FileReader();
+    
+    if (file.name.endsWith(".csv")) {
         reader.onload = (e) => {
             users = parseCSV(e.target.result);
-            saveToLocalStorage(); // Guardar en localStorage
+            saveToLocalStorage();
             loadUsers(users);
         };
         reader.readAsText(file);
+    } else if (file.name.endsWith(".xlsx")) {
+        reader.onload = (e) => {
+            const data = new Uint8Array(e.target.result);
+            const workbook = XLSX.read(data, { type: "array" });
+            const sheetName = workbook.SheetNames[0];
+            const sheet = workbook.Sheets[sheetName];
+            const jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+            users = parseExcel(jsonData);
+            saveToLocalStorage();
+            loadUsers(users);
+        };
+        reader.readAsArrayBuffer(file);
     } else {
-        alert("Por favor seleccione un archivo CSV válido.");
+        alert("Por favor seleccione un archivo CSV o Excel válido.");
     }
+}
+
+// Convertir datos de Excel a array de usuarios
+function parseExcel(data) {
+    return data.slice(1).map(row => ({
+        code: generateCode(),
+        firstName: row[0] || "",
+        lastName: row[1] || "",
+        email: row[2] || "",
+        whatsapp: row[3] || "",
+        funnel: row[4] || "Funnel process",
+        course: row[5] || "Course process"
+    }));
 }
 
 // Convertir texto CSV a array de usuarios
@@ -77,6 +108,8 @@ function generateCode() {
 // Cargar usuarios en la tabla
 function loadUsers(users) {
     const tableBody = document.querySelector("#leadsTableBody");
+    if (!tableBody) return; // Evitar error si la tabla no existe
+
     tableBody.innerHTML = ""; // Limpiar tabla
 
     users.forEach(user => {
@@ -103,9 +136,6 @@ function loadUsers(users) {
         `;
         tableBody.appendChild(row);
     });
-
-    habilitarEdicion();
-    habilitarEliminar();
 }
 
 // Guardar usuarios en localStorage
@@ -122,68 +152,74 @@ function loadCSVData() {
     }
 }
 
-// Habilitar edición en las columnas 'Funnel' y 'Curso'
-function habilitarEdicion() {
-    document.querySelectorAll('.btn-editar').forEach((btn) => {
-        btn.addEventListener('click', function () {
-            let tr = btn.closest('tr');
-            let inputs = tr.querySelectorAll('.edit-input');
-            let spans = tr.querySelectorAll('.data');
-
-            inputs.forEach((input, index) => {
-                let span = spans[index];
-                if (input.style.display === 'none') {
-                    input.style.display = 'inline';
-                    span.style.display = 'none';
-                    btn.innerText = 'Guardar';
-                    btn.classList.remove('btn-warning');
-                    btn.classList.add('btn-success');
-                } else {
-                    span.innerText = input.value;
-                    input.style.display = 'none';
-                    span.style.display = 'inline';
-                    btn.innerText = 'Editar';
-                    btn.classList.remove('btn-success');
-                    btn.classList.add('btn-warning');
-                }
-            });
-        });
-    });
-}
-
-// Eliminar usuario de la tabla
-function habilitarEliminar() {
-    document.querySelectorAll('.btn-eliminar').forEach((btn) => {
-        btn.addEventListener('click', function () {
-            let id = parseInt(btn.getAttribute('data-id'));
-            users = users.filter(user => user.code !== id);
-            saveToLocalStorage();
-            loadUsers(users);
-        });
-    });
-}
-
 // Función para contactar a través de WhatsApp
 function contactWhatsApp(whatsapp) {
     window.open(`https://wa.me/${whatsapp}`, '_blank');
 }
 
-// Guardar cambios de usuario
-function saveUserChanges() {
-    const id = parseInt(document.getElementById("saveChangesBtn").getAttribute("data-id"));
+function editUser(id) {
+    id = parseInt(id); // Convertir a número
     const user = users.find(u => u.code === id);
+    
     if (user) {
-        user.firstName = document.getElementById("nameInput").value;
-        user.lastName = document.getElementById("lastnameInput").value;
-        user.email = document.getElementById("emailInput").value;
-        user.whatsapp = document.getElementById("whatsappInput").value;
-        user.funnel = document.getElementById("funnelInput").value;
-        user.course = document.getElementById("coursesInput").value;
+        document.getElementById("nameInput").value = user.firstName;
+        document.getElementById("lastnameInput").value = user.lastName;
+        document.getElementById("emailInput").value = user.email;
+        document.getElementById("whatsappInput").value = user.whatsapp;
+        document.getElementById("funnelInput").value = user.funnel;
+        document.getElementById("coursesInput").value = user.course;
 
-        saveToLocalStorage(); // Guardar cambios
-        loadUsers(users);
+        // Guardar el ID del usuario en el botón de guardar cambios
+        document.getElementById("saveChangesBtn").setAttribute("data-id", id);
 
-        // Cerrar modal
-        bootstrap.Modal.getInstance(document.getElementById("editModal")).hide();
+        // Abrir el modal de edición
+        new bootstrap.Modal(document.getElementById("editModal")).show();
+    } else {
+        alert("Usuario no encontrado.");
     }
 }
+
+// Guardar cambios en el usuario editado
+function saveUserChanges() {
+    const id = parseInt(document.getElementById("saveChangesBtn").getAttribute("data-id"));
+    
+    if (isNaN(id)) {
+        alert("Error: No se encontró el usuario.");
+        return;
+    }
+
+    // Buscar usuario en el array
+    const userIndex = users.findIndex(u => u.code === id);
+    if (userIndex !== -1) {
+        // Actualizar datos del usuario
+        users[userIndex].firstName = document.getElementById("nameInput").value;
+        users[userIndex].lastName = document.getElementById("lastnameInput").value;
+        users[userIndex].email = document.getElementById("emailInput").value;
+        users[userIndex].whatsapp = document.getElementById("whatsappInput").value;
+        users[userIndex].funnel = document.getElementById("funnelInput").value;
+        users[userIndex].course = document.getElementById("coursesInput").value;
+
+        // Guardar en localStorage
+        saveToLocalStorage();
+
+        // Recargar la tabla con los datos actualizados
+        loadUsers(users);
+
+        // Cerrar el modal correctamente
+        const modal = bootstrap.Modal.getInstance(document.getElementById("editModal"));
+        if (modal) modal.hide();
+    } else {
+        alert("No se encontró el usuario en la lista.");
+    }
+}
+
+
+// Eliminar usuario
+function deleteUser(id) {
+    users = users.filter(user => user.code !== id);
+    saveToLocalStorage();
+    loadUsers(users);
+}
+
+// Guardar cambios de usuario
+// (This function is already defined earlier in the code, so this duplicate definition is removed)
