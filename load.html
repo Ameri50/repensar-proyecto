@@ -1,81 +1,87 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Leads</title>
+
+    <!-- CSS de Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Tu CSS personalizado -->
     <link rel="stylesheet" href="css/styleLoad.css">
 </head>
+
 <body>
 
     <div class="container-fluid">
         <!-- Barra de búsqueda -->
         <div class="search-bar mt-3">
-            <input type="text" class="form-control" placeholder="Buscar">
+            <input type="text" class="form-control" id="searchInput" placeholder="Buscar">
         </div>
-    
-        <!-- Sección para subir archivos Excel -->
+
+        <!-- Sección para subir archivos Excel/CSV -->
         <div class="upload-section mt-3 text-center">
             <input type="file" id="fileInput" class="form-control d-inline-block w-50" accept=".xls,.xlsx,.csv">
-            <button class = "btn btn-primary" id = "upload-section">Subir archivos</button>
+            <button class="btn btn-primary" id="upload-section">Subir archivos</button>
         </div>
     </div>
+
     <!-- Botón para abrir el modal de agregar lead -->
-<div class="text-center mt-3">
-    <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#addLeadModal">AGREGAR LEAD</button>
-</div>
+    <div class="text-center mt-3">
+        <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#addLeadModal">AGREGAR LEAD</button>
+    </div>
 
-<!-- Modal para agregar datos -->
-<div class="modal fade" id="addLeadModal" tabindex="-1" aria-labelledby="addLeadModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addLeadModalLabel">Agregar Lead</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="addLeadForm">
-                    <div class="mb-3">
-                        <label for="newName" class="form-label">Nombre</label>
-                        <input type="text" id="newName" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="newLastName" class="form-label">Apellido</label>
-                        <input type="text" id="newLastName" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="newEmail" class="form-label">Email</label>
-                        <input type="email" id="newEmail" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="newWhatsapp" class="form-label">WhatsApp</label>
-                        <input type="text" id="newWhatsapp" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="newFunnel" class="form-label">Funnel</label>
-                        <input type="text" id="newFunnel" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label for="newCurso" class="form-label">Curso</label>
-                        <input type="text" id="newCurso" class="form-control">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-success" id="saveLeadBtn">Guardar Lead</button>
+    <!-- Modal para agregar leads -->
+    <div class="modal fade" id="addLeadModal" tabindex="-1" aria-labelledby="addLeadModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addLeadModalLabel">Agregar Lead</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addLeadForm">
+                        <div class="mb-3">
+                            <label for="newName" class="form-label">Nombre</label>
+                            <input type="text" id="newName" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newLastName" class="form-label">Apellido</label>
+                            <input type="text" id="newLastName" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newEmail" class="form-label">Email</label>
+                            <input type="email" id="newEmail" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newWhatsapp" class="form-label">WhatsApp</label>
+                            <input type="text" id="newWhatsapp" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newFunnel" class="form-label">Funnel</label>
+                            <input type="text" id="newFunnel" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="newCurso" class="form-label">Curso</label>
+                            <input type="text" id="newCurso" class="form-control">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success" id="saveLeadBtn">Guardar Lead</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-
+    <!-- Tabla de leads -->
     <div class="row">
-        <!-- Tabla de datos -->
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="table-container mt-3">
-                <<table class="table">
+                <table class="table">
                     <thead>
                         <tr>
                             <th>Código</th>
@@ -88,55 +94,9 @@
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody id="leadsTableBody"></tbody> <!-- ESTE ELEMENTO DEBE EXISTIR -->
-                </table>                
+                    <tbody id="leadsTableBody"></tbody>
+                </table>
             </div>
-        </div>
-
-      <!-- Modal para editar datos -->
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Editar Lead</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="editLeadForm">
-                    <div class="mb-3">
-                        <label for="nameInput" class="form-label">Nombre</label>
-                        <input type="text" id="nameInput" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label for="lastnameInput" class="form-label">Apellido</label>
-                        <input type="text" id="lastnameInput" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label for="emailInput" class="form-label">Email</label>
-                        <input type="email" id="emailInput" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label for="whatsappInput" class="form-label">WhatsApp</label>
-                        <input type="text" id="whatsappInput" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label for="funnelInput" class="form-label">Funnel</label>
-                        <input type="text" id="funnelInput" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label for="coursesInput" class="form-label">Curso</label>
-                        <input type="text" id="coursesInput" class="form-control">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" id="saveChangesBtn" class="btn btn-primary">Guardar Cambios</button>
-            </div>
-        </div>
-    </div>
-</div>
-
         </div>
     </div>
 
@@ -145,19 +105,19 @@
         <button class="btn btn-danger btn-lg">RESULTADOS DE LA ENCUESTA</button>
     </div>
 
-    <div class="resultados mt-3"></div>
+    <!-- Bibliotecas externas (antes de tus scripts) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
-</div>
+    <!-- Tus archivos JS personalizados -->
+    <script type="module" src="js/global.js"></script>
+    <script type="module" src="js/Lead.js"></script>
+    <script type="module" src="js/Load.js"></script>
+    <script type="module" src="js/main.js"></script>
 
-<!-- Bootstrap JS y dependencias -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-
-
-<!-- Archivos JS propios -->
-<script type="module" src="js/Load.js"></script>
-<script type="module" src="js/Lead.js"></script>
+    <!-- Bootstrap JS (siempre al final para mejor rendimiento) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
+
 </html>

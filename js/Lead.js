@@ -1,100 +1,78 @@
+import { saveToLocalStorage, loadFromLocalStorage, generateCode } from "./global.js";
+
 // Clase Lead
-class Lead {
-    constructor(id, nombre, apellido, correo, whatsapp, funnel = "", course = "") {
+export class Lead {
+    constructor(id, firstName, lastName, email, whatsapp, funnel = "Funnel process", course = "Course process") {
         this.id = id;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.correo = correo;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
         this.whatsapp = whatsapp;
         this.funnel = funnel;
         this.course = course;
     }
 
-    // Método para generar una fila HTML para la tabla
+    // Generar fila de la tabla
     generateTableRow() {
         return `
             <tr>
                 <td>${this.id}</td>
-                <td>${this.nombre}</td>
-                <td>${this.apellido}</td>
-                <td>${this.correo}</td>
+                <td>${this.firstName}</td>
+                <td>${this.lastName}</td>
+                <td>${this.email}</td>
                 <td>${this.whatsapp}</td>
-                <td class="funnel">${this.funnel}</td>
-                <td class="course">${this.course}</td>
+                <td>${this.funnel}</td>
+                <td>${this.course}</td>
                 <td>
-                    <button class="btn btn-warning btn-sm" onclick="editLead(${this.id})">Editar</button>
-                    <button class="btn btn-danger btn-sm" onclick="deleteLead(${this.id})">Eliminar</button>
-                    <button class="btn btn-success btn-sm" onclick="contactWhatsApp(${this.whatsapp})">WhatsApp</button>
+                    <button class="btn btn-warning btn-sm btn-editar" data-id="${this.id}">Editar</button>
+                    <button class="btn btn-danger btn-sm btn-eliminar" data-id="${this.id}">Eliminar</button>
+                    <button class="btn btn-success btn-sm whatsapp-btn" data-phone="${this.whatsapp}">WhatsApp</button>
                 </td>
             </tr>
         `;
     }
-    
 }
 
-// Array para almacenar los leads
-const leads = [];
+// Cargar leads desde localStorage
+export let leads = loadFromLocalStorage("leads");
 
-// Función para agregar un nuevo lead
-function addLead(e) {
-    e.preventDefault(); // Prevenir el envío real del formulario
-    
-    // Obtener los valores del formulario
-    const id = leads.length + 1; // Generar un ID basado en la cantidad de leads
-    const nombre = document.getElementById('newName').value;
-    const apellido = document.getElementById('newLastName').value;
-    const correo = document.getElementById('newEmail').value;
-    const whatsapp = document.getElementById('newWhatsapp').value;
-    const funnel = document.getElementById('newFunnel').value;
-    const course = document.getElementById('newCurso').value;
+// Guardar leads en localStorage
+export function saveLeads() {
+    saveToLocalStorage("leads", leads);
+}
 
-    // Crear una nueva instancia de Lead
-    const newLead = new Lead(id, nombre, apellido, correo, whatsapp, funnel, course);
-    
-    // Agregar el nuevo lead al array
+// Mostrar los leads en la tabla
+export function displayLeads() {
+    const tableBody = document.getElementById("leadsTableBody");
+    tableBody.innerHTML = leads.map(lead => new Lead(
+        lead.id, lead.firstName, lead.lastName, lead.email, lead.whatsapp, lead.funnel, lead.course
+    ).generateTableRow()).join("");
+}
+
+// Agregar un nuevo lead
+export function addLead(form) {
+    const newLead = new Lead(
+        generateCode(),
+        form.newName.value,
+        form.newLastName.value,
+        form.newEmail.value,
+        form.newWhatsapp.value,
+        form.newFunnel.value,
+        form.newCurso.value
+    );
+
     leads.push(newLead);
-
-    // Mostrar el lead en la tabla
+    saveLeads();
     displayLeads();
-
-    // Limpiar el formulario
-    document.getElementById('addLeadForm').reset();
+    form.reset();
 }
 
-// Función para mostrar los leads en la tabla
-function displayLeads() {
-    const leadsTableBody = document.getElementById('leadsTableBody');
-    
-    // Limpiar la tabla antes de agregar los nuevos datos
-    leadsTableBody.innerHTML = '';
-
-    // Agregar cada lead a la tabla
-    leads.forEach(lead => {
-        leadsTableBody.innerHTML += lead.generateTableRow();
-    });
-}
-
-// Función para eliminar un lead
-function deleteLead(id) {
-    // Filtrar el lead a eliminar
-    const leadIndex = leads.findIndex(lead => lead.id === id);
-    if (leadIndex > -1) {
-        leads.splice(leadIndex, 1);
+// Eliminar un lead por ID
+export function deleteLead(id) {
+    const index = leads.findIndex(lead => lead.id === id);
+    if (index !== -1) {
+        leads.splice(index, 1);
+        saveLeads();
+        displayLeads();
     }
-    
-    // Volver a mostrar la tabla después de eliminar
-    displayLeads();
 }
-
-// Función para editar un lead (por ahora solo muestra un mensaje)
-function editLead(id) {
-    alert(`Editar Lead con ID: ${id}`);
-}
-
-// Función para contactar a través de WhatsApp
-function contactWhatsApp(whatsapp) {
-    window.open(`https://wa.me/${whatsapp}`, '_blank');
-}
-
-// Escuchar el evento de envío del formulario
-document.getElementById('addLeadForm').addEventListener('submit', addLead);
